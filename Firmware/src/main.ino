@@ -39,7 +39,7 @@ void setup()
     Serial.println("Starting...");
 
     bool res;
-    res = wifiManager.autoConnect("SK-WInFiDEL-Setup", "letsrock");
+    res = wifiManager.autoConnect("SK-WInFiDEL-Setup");
 
     if(!res) {
         Serial.println("Failed to connect or hit timeout");
