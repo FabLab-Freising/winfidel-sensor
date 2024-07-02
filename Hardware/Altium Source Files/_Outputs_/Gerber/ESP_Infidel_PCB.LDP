@@ -1,0 +1,4 @@
+Layer Pairs Export File for PCB: E:\_DATEN\Alexander\Projekte\_Projektordner\3D-Drucker\Winfidel\Hardware\Altium Source Files\ESP_Infidel_PCB.PcbDoc
+LayersSetName=Top_Bot_Plated_Thru_Holes|DrillFile=esp_infidel_pcb-roundholes-plated.txt|DrillLayers=gtl,g1,g2,gbl
+LayersSetName=Top_Bot_Plated_Slot_Holes|DrillFile=esp_infidel_pcb-slotholes-plated.txt|DrillLayers=gtl,g1,g2,gbl
+LayersSetName=Top_Bot_NonPlated_Thru_Holes|DrillFile=esp_infidel_pcb-roundholes-nonplated.txt|DrillLayers=gtl,g1,g2,gbl
