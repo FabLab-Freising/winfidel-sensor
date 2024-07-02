@@ -16,19 +16,30 @@ const char mdnsName[] = MDNS_NAME;
 const char wifiName[] = WIFI_HOSTNAME;
 uint8_t dbgOTApercent = 100;
 
+
+//Define HardwareSerial for outputting data
+HardwareSerial HWSerial0(0);
+
+
 void setup()
 {
     // Configure Serial communication
+    //USB-CDC Serial, Debug prints and averything neede
 	Serial.begin(115200);
+    //Hardware-Serial on T/R Pins
+    //Data for beeing processed elsewhere --> Raw-Data better useful?
+    HWSerial0.begin(115200);
+
     Serial.println("Wireless Inline Filament Estimator, Low-Cost - WInFiDEL");
     WiFi.setHostname(wifiName);
 
     // wifiManager.resetSettings(); // Wipe WiFi settings. Uncomment for WiFi manager testing
+     
 
-    delay(500);
+    Serial.println("Starting...");
 
     bool res;
-    res = wifiManager.autoConnect("SK-WInFiDEL-Setup");
+    res = wifiManager.autoConnect("SK-WInFiDEL-Setup", "letsrock");
 
     if(!res) {
         Serial.println("Failed to connect or hit timeout");
@@ -37,15 +48,18 @@ void setup()
     else {
         //if you get here you have connected to the WiFi
         Serial.println("Connected.");
-    }
+    }   
 
 	// Initialize LittleFS
     Serial.print("Starting LittleFS...");
+    
     if(!LittleFS.begin()){
         Serial.println("An Error has occurred while mounting LittleFS");
         return;
     }
+
     Serial.println("done.");
+
 
 	Serial.print("WiFi IP: ");
 	Serial.println(WiFi.localIP());
@@ -59,13 +73,19 @@ void setup()
         Serial.println((String) "mDNS http://" + MDNS_NAME + ".local");
     }
 
+    
     // Add service to MDNS-SD
     MDNS.addService("http", "tcp", 80);
 
     EEPROM.begin(sizeof(calibration_t));
+
+    
+
     calibration_init();
 
     adc_init();
+
+    
 
     Serial.print("Starting WebServer...");
 	setupWebServer();
@@ -75,9 +95,14 @@ void setup()
     Serial.print("WiFi IP: ");
     Serial.println(WiFi.localIP());
 
+    
+
+
     /**
     * Enable OTA update
     */
+
+   
     ArduinoOTA
     .onStart([]() {
       String type;
@@ -119,6 +144,9 @@ void setup()
 	Serial.println("Ready to go.");
 
     i2c_scan_bus();
+
+    
+
 }
 
 

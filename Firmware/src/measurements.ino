@@ -104,6 +104,13 @@ void Measurements_Tick(void)
         // Update reading counter
         numMeasurements++;
 
+        //print to Hardware console:
+
+        HWSerial0.print("VM:");
+        HWSerial0.println(get_avg());
+        
+
+
         // Set next update timestamp
         nNextMeasurementTick = millis() + 200;
     }
